@@ -1,4 +1,0 @@
-1 - SELECT `nazwa`, `dostepnosc`, `cena` FROM `podzespoly` WHERE `producenci_id`="2"
-2 - SELECT `id`, `opis` FROM podzespoly WHERE dostepnosc='0' AND producenci_id='1' OR producenci_id='2'
-3 - SELECT `podzespoly`.`opis`, `podzespoly`.`cena`, `podzespoly`.`nazwa`, `producenci`.`nazwa` FROM `podzespoly` JOIN `producenci`
-4 - ALTER TABLE `producenci` ADD COLUMN priorytet int
