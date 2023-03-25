@@ -1,0 +1,39 @@
+html {
+    font-family: Helvetica;
+}
+.lista .logo {
+    background-color: #6FACE3;
+    color: blue;
+    height: 300px;
+    width: 30%;
+}
+.formularz {
+    background-color: #6FACE3;
+    height: 300px;
+    width: 40%;
+    margin-left: 20%;
+}
+header {
+    display: flex;
+    background-color: #6FACE3;
+}
+main {
+    background-color: #4C93D2;
+    height: 350px;
+    padding: 20px;
+    text-align: center;
+}
+footer {
+    background-color: #2D77BA;
+    color: white;
+    height: 170px;
+    padding: 15px;
+}
+a:link {
+    background-color: lightskyblue;
+    margin: 5px;
+    padding: 10px;
+}
+a:visited {
+    background-color: lightsteelblue;
+}

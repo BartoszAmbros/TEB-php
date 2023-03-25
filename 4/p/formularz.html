@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodaj ogłoszenie</title>
+    <link rel="stylesheet" href="styl3.css">
+</head>
+<body>
+    <header>
+        <h1>Portal Ogłoszeniowy</h1>
+    </header>
+
+    <main>
+        <div id="lewy">
+            <h2>Kategorie</h2>
+                <ol>
+                    <li>Książki</li>
+                    <li>Muzyka</li>
+                    <li>Filmy</li>
+                </ol>
+            <h2>Podkategorie</h2>
+                <ol>
+                    <li>Romans</li>
+                    <li>Biografia</li>
+                    <li>Kryminał</li>
+                    <li>Komiks</li>
+                </ol>
+            <img src="ksiazki.jpg" alt="Dodaj ogłoszenie"> <br>
+            <a href="kwerendy.txt">Pobierz kwerendy</a>
+        </div>
+
+        <div id="prawy">
+            <h2>Anna Kowalska - dodanie ogłoszenia</h2>
+
+            <form action="formularz.html" method="post" name="form">
+                Kategoria <br>  <input type="number" name="kat"><br>
+                Podkategoria <br> <input type="number" name="podkat"><br>
+                Tytuł <br> <input type="text" name="tyt"><br>
+                Treść <br> <textarea name="tresc" cols="40" rows="10"></textarea><br>
+                <button type="reset">WYCZYŚĆ</button>
+                <button type="submit">ZAPISZ</button>
+            </form>
+            <?php
+                include('api.php');
+            ?>
+        </div>
+    </main>
+
+    <footer>
+        Portal ogłoszeniowy opracował: 000000000
+    </footer>
+</body>
+</html>

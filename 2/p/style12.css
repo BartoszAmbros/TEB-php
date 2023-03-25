@@ -1,0 +1,53 @@
+html {
+    font-family: Verdana;
+}
+.menu {
+    background-color: sandybrown;
+    height: 120px;
+    width: 60%;
+    display: flex;
+    align-items: center;
+}
+.logo {
+    background-color: sienna;
+    color: white;
+    text-align: center;
+    height: 120px;
+    width: 40%;
+}
+.lewy {
+    background-color: sienna;
+    color: white;
+    height: 700px;
+    width: 60%;
+}
+.prawy {
+    background-color: sandybrown;
+    height: 700px;
+    width: 40%;
+    float: right;
+}
+footer {
+    background-color: #4d1900;
+    color: white;
+    text-align: right;
+}
+a {
+    background-color: green;
+    color: yellow;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 50px;
+    padding-left: 50px;
+    margin-left: 2%;
+}
+a:hover {
+    background-color: yellow;
+    color: green;
+}
+header {
+    display: flex;
+}
+main {
+   display: flex;
+}
