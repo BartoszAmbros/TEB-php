@@ -13,22 +13,26 @@ $action = $_GET['action'] ?? DEFAULT_ACTION;
 
 $viewParams = [];
 
-if ($action === 'create'){
-    $page = 'create';
+switch($action):
+    case 'create':
+        $page = 'create';
+        $created = false;
 
-    $created = false;
-    if(!empty($_POST)){
-        $viewParams = [
-            'title' => $_POST['title'],
-            'description' => $_POST['description'],
-        ];
-        $created = true;
-    }
-    $viewParams['created'] = $created;
-}else {
-    $page = 'list';
-    $viewParams['resultList'] = 'Wyświetlamy listę notatek';
-}
+        if(!empty($_POST)){
+            $viewParams = [
+                'title' => $_POST['title'],
+                'description' => $_POST['description'],
+            ];
+            $created = true;
+        }
+
+        $viewParams['created'] = $created;
+        break;
+
+    default:
+        $page = 'list';
+        $viewParams['resultList'] = 'Wyświetlamy listę notatek';
+    endswitch;
 
 $view = new View();
 $view->render($page, $viewParams);
