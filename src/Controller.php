@@ -36,25 +36,25 @@ class Controller {
         switch($this->action()):
         case 'create':
             $page = 'create';
-            $created = false;
+            
             $data = $this->getRequestPost();
 
             if(!empty($data)){
                 $created = true;
-                $viewParams = [
+                $noteData = [
                     'title' => $data['title'],
                     'description' => $data['description'],
                     ];
-                $this->database->createNote($viewParams);
-                header('Location: /');
+                $this->database->createNote($noteData);
+                header('Location: /?before=created');
             }
 
-        $viewParams['created'] = $created;
         break;
 
         default:
             $page = 'list';
-            $viewParams['resultList'] = 'Wyświetlamy listę notatek';
+            $data = $this->getRequestGet();
+            $viewParams['before'] = $data['before'] ?? null;
         endswitch;
 
         $this->view->render($page, $viewParams);
