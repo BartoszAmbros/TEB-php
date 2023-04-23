@@ -3,8 +3,8 @@
     if ($note) : ?>
         <ul>
             <li>ID: <?php echo (int) $note['id'] ?></li>
-            <li>Tytuł: <?php echo (int) $note['title'] ?></li>
-            <li>Opis: <?php echo (int) $note['description'] ?></li>
+            <li>Tytuł: <?php echo $note['title'] ?></li>
+            <li>Opis: <?php echo $note['description'] ?></li>
             <li>Utworzono: <?php echo (int) $note['created'] ?></li>
             <li>
                 <a href="/">

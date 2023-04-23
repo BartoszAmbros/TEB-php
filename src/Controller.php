@@ -13,12 +13,12 @@ use App\Exception\NotFoundException;
 class Controller {
     const DEFAULT_ACTION = 'list';
 
-    private array $request;
+    private Request $request;
     private static $configuration = [];
     private Database $database;
     private View $view;
 
-    public function __construct(array $request) {
+    public function __construct(Request $request) {
         $this->request = $request;
         $this->view = new View();
         $db = new Database(self::$configuration);
@@ -37,13 +37,11 @@ class Controller {
             case 'create':
                 $page = 'create';
 
-                $data = $this->getRequestPost();
-
-                if (!empty($data)) {
-                    $created = true;
+                if ($this->request->hasPost()) {
+                   
                     $noteData = [
-                        'title' => $data['title'],
-                        'description' => $data['description'],
+                        'title' => $this->request->postParam('title'),
+                        'description' => $this->request->postParam('description'),
                     ];
                     $this->database->createNote($noteData);
                     header('Location: /?before=created');
@@ -53,8 +51,7 @@ class Controller {
 
             case 'show':
                 $page = 'show';
-                $data = $this->getRequestGet();
-                $noteId = (int) $data['id'] ?? null;
+                $noteId = (int) $this->request->getParam('id') ?? null;
                 if (!$noteId) {
                     header('Location: /?error=missingNoteId');
                     exit;
@@ -71,11 +68,10 @@ class Controller {
 
             default:
                 $page = 'list';
-                $data = $this->getRequestGet();
                 $viewParams = [
                     'notes' => $this->database->getNotes(),
-                    'before' => $data['before'] ?? null,
-                    'error' => $data['error'] ?? null,
+                    'before' =>$this->request->getParam('before') ?? null,
+                    'error' => $this->request->getParam('error') ?? null,
                 ];
         endswitch;
 
@@ -83,15 +79,6 @@ class Controller {
     }
 
     private function action(): string {
-        $data = $this->getRequestGet();
-        return $data['action'] ?? self::DEFAULT_ACTION;
-    }
-
-    private function getRequestPost(): array {
-        return $this->request['post'] ?? [];
-    }
-
-    private function getRequestGet(): array {
-        return $this->request['get'] ?? [];
+        return $this->request->getParam('action') ?? self::DEFAULT_ACTION;
     }
 }
