@@ -8,6 +8,8 @@ include_once('./src/View.php');
 require_once('./config/config.php');
 require_once('./src/Database.php');
 
+use App\Exception\NotFoundException;
+
 class Controller {
     const DEFAULT_ACTION = 'list';
 
@@ -27,37 +29,54 @@ class Controller {
         self::$configuration = $configuration;
     }
 
-    public function run():void {
-        $action = $this->getData['action'] ?? self::DEFAULT_ACTION;
-        $view = new View();
+    public function run(): void {
 
         $viewParams = [];
 
-        switch($this->action()):
-        case 'create':
-            $page = 'create';
-            
-            $data = $this->getRequestPost();
+        switch ($this->action()):
+            case 'create':
+                $page = 'create';
 
-            if(!empty($data)){
-                $created = true;
-                $noteData = [
-                    'title' => $data['title'],
-                    'description' => $data['description'],
+                $data = $this->getRequestPost();
+
+                if (!empty($data)) {
+                    $created = true;
+                    $noteData = [
+                        'title' => $data['title'],
+                        'description' => $data['description'],
                     ];
-                $this->database->createNote($noteData);
-                header('Location: /?before=created');
-            }
+                    $this->database->createNote($noteData);
+                    header('Location: /?before=created');
+                    exit;
+                }
+                break;
 
-        break;
+            case 'show':
+                $page = 'show';
+                $data = $this->getRequestGet();
+                $noteId = (int) $data['id'] ?? null;
+                if (!$noteId) {
+                    header('Location: /?error=missingNoteId');
+                    exit;
+                }
+                try {
+                    $note = $this->database->getNote($noteId);
+                } catch (NotFoundException $e) {
+                    header('Location: /?error=noteNotFound');
+                }
+                $viewParams = [
+                    'note' => $note,
+                ];
+                break;
 
-        default:
-            $page = 'list';
-            $data = $this->getRequestGet();
-            $viewParams = [
-                'notes' => $this->database->getNotes(),
-                'before' => $data['before'] ?? null,
-            ];
+            default:
+                $page = 'list';
+                $data = $this->getRequestGet();
+                $viewParams = [
+                    'notes' => $this->database->getNotes(),
+                    'before' => $data['before'] ?? null,
+                    'error' => $data['error'] ?? null,
+                ];
         endswitch;
 
         $this->view->render($page, $viewParams);
