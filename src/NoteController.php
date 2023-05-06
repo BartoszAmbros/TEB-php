@@ -4,31 +4,12 @@ declare(strict_types=1);
 
 namespace App;
 
-include_once('./src/View.php');
-require_once('./config/config.php');
-require_once('./src/Database.php');
+require_once('AbstractController.php');
 
 use App\Exception\NotFoundException;
 
-class Controller {
-    const DEFAULT_ACTION = 'list';
-
-    private Request $request;
-    private static $configuration = [];
-    private Database $database;
-    private View $view;
-
-    public function __construct(Request $request) {
-        $this->request = $request;
-        $this->view = new View();
-        $db = new Database(self::$configuration);
-        $this->database = new Database(self::$configuration);
-    }
-
-    public static function initConfiguration(array $configuration): void {
-        self::$configuration = $configuration;
-    }
-
+class NoteController extends AbstractController {
+    
     public function createAction() {
 
         if($this->request->hasPost()) {
@@ -65,15 +46,4 @@ class Controller {
         ]);
     }
     
-    public function run():void {
-        $action = $this->action() . 'Action';
-        if(!method_exists($this, $action)) {
-            $action = self::DEFAULT_ACTION . 'Action';
-        }
-        $this->$action();
-    }
-
-    private function action(): string {
-        return $this->request->getParam('action') ?? self::DEFAULT_ACTION;
-    }
 }
