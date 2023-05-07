@@ -3,7 +3,7 @@
     <?php if(!empty($params['note'])) : ?>
         <?php $note = $params['note']; ?>
         <form action="/?action=delete" class="note-form" method="post">
-            <input type="text" name="id" value="<?php echo $note['id']?>" disabled>
+            <input type="text" name="id" value="<?php echo $note['id']?>" hidden>
             <ul>
                 <li>
                     <label for="title">Tytuł <span class="required">*</span></label>

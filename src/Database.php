@@ -61,7 +61,9 @@ class Database {
             $title = $this->conn->quote($data['title']);
             $description = $this->conn->quote($data['description']);
             $created = date('Y-m-d H:i:s');
+
             $query = "INSERT INTO notes(title, description, created) VALUES($title, $description, '$created')";
+            
             $result = $this->conn->exec($query);
         } catch (Throwable $e) {
             throw new StorageException('Nie udało się utworzyć nowej notatki', 400, $e);
