@@ -81,6 +81,16 @@ class Database {
         }
     }
 
+    public function deleteNote(int $id) {
+        try {
+            $query = "DELETE FROM notes WHERE id = $id";
+
+            $this->conn->exec($query);
+        } catch(Throwable $e) {
+            throw new StorageException('Nie udało się usunąć notatki', 400, $e);
+        }
+    }
+
     private function createConnection(array $config): void{
         $dsn = "mysql:dbname={$config['database']};host={$config['host']}";
        $this->conn = new PDO(
